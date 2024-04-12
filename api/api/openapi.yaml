@@ -1,0 +1,676 @@
+openapi: 3.0.0
+info:
+  contact: {}
+  license:
+    name: MIT
+  title: '@ledge/external-api'
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /external/{key}/external-user:
+    get:
+      operationId: GetExternalUser
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: externalId
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: gameId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/User'
+                nullable: true
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/my-quests:
+    get:
+      operationId: GetMyQuests
+      parameters:
+      - description: given by the Ledge admins.
+        explode: false
+        in: header
+        name: ApiKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Quest'
+                type: array
+          description: quests created by this api key
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/my-goals:
+    get:
+      operationId: GetMyGoals
+      parameters:
+      - description: given by the Ledge admins.
+        explode: false
+        in: header
+        name: ApiKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Goal'
+                type: array
+          description: quests created by this api key
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/{key}/user:
+    post:
+      operationId: RegisterUser
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalUser'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/{key}/activity:
+    post:
+      operationId: TrackActivity
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalActivity'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackActivity_200_response'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/quests:
+    post:
+      operationId: CreateQuest
+      parameters:
+      - explode: false
+        in: header
+        name: ApiKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuest_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackActivity_200_response'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/{key}/questSchedule:
+    post:
+      operationId: CreateQuestSchedule
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuestSchedule_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQuestSchedule_200_response'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+  /external/{key}/goal:
+    post:
+      operationId: CreateGoal
+      parameters:
+      - explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGoal_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackActivity_200_response'
+          description: Ok
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ""
+      security: []
+      tags:
+      - external
+components:
+  examples: {}
+  headers: {}
+  parameters: {}
+  requestBodies: {}
+  responses: {}
+  schemas:
+    ErrorResponse:
+      example:
+        code: 0.8008281904610115
+        message: message
+      properties:
+        message:
+          type: string
+        code:
+          format: double
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    Gender:
+      enum:
+      - male
+      - female
+      - other
+      - unknown
+      type: string
+    User:
+      description: Model User
+      example:
+        gameId: gameId
+        lastLogin: 2000-01-23T04:56:07.000+00:00
+        mergedWith: mergedWith
+        hasAcceptedLegal: true
+        code: code
+        gender: null
+        hasOnboarded: true
+        enableNotifications: true
+        verified: true
+        externalId: externalId
+        avatar: avatar
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        phoneNumber: phoneNumber
+        usertag: 1.4658129805029452
+        birthYear: 0.8008281904610115
+        name: name
+        id: id
+        referredById: referredById
+        email: email
+        remainingReferrals: 6.027456183070403
+        username: username
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        lastLogin:
+          format: date-time
+          nullable: true
+          type: string
+        verified:
+          type: boolean
+        mergedWith:
+          nullable: true
+          type: string
+        gameId:
+          nullable: true
+          type: string
+        externalId:
+          nullable: true
+          type: string
+        referredById:
+          nullable: true
+          type: string
+        enableNotifications:
+          type: boolean
+        hasAcceptedLegal:
+          type: boolean
+        hasOnboarded:
+          type: boolean
+        gender:
+          $ref: '#/components/schemas/Gender'
+        birthYear:
+          format: double
+          type: number
+        avatar:
+          type: string
+        remainingReferrals:
+          format: double
+          type: number
+        code:
+          type: string
+        usertag:
+          format: double
+          type: number
+        username:
+          type: string
+        name:
+          type: string
+        phoneNumber:
+          nullable: true
+          type: string
+        email:
+          nullable: true
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - avatar
+      - birthYear
+      - code
+      - createdAt
+      - email
+      - enableNotifications
+      - externalId
+      - gameId
+      - gender
+      - hasAcceptedLegal
+      - hasOnboarded
+      - id
+      - lastLogin
+      - mergedWith
+      - name
+      - phoneNumber
+      - referredById
+      - remainingReferrals
+      - updatedAt
+      - username
+      - usertag
+      - verified
+      type: object
+    QuestType:
+      enum:
+      - INDIVIDUAL
+      - COMMUNITY
+      type: string
+    Quest:
+      description: Model Quest
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id: id
+        type: null
+        title: title
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        type:
+          $ref: '#/components/schemas/QuestType'
+        description:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - createdAt
+      - description
+      - id
+      - title
+      - type
+      - updatedAt
+      type: object
+    ActivityType:
+      description: Enums
+      enum:
+      - USER_SIGN_UP
+      - REFERRAL
+      - GAME_CLICK
+      - SOCIAL_CLICK
+      - EXTERNAL
+      - ACTIVITY_RESUMED
+      - ACTIVITY_PAUSED
+      - ACTIVITY_STOPPED
+      - FOREGROUND_SERVICE_START
+      - FOREGROUND_SERVICE_STOP
+      - GAME_INSTALLED
+      type: string
+    Goal:
+      description: Model Goal
+      example:
+        questId: questId
+        instructions: instructions
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        activity: null
+        bannerUrl: bannerUrl
+        description: description
+        id: id
+        title: title
+        objectId: objectId
+        target: 0.8008281904610115
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        objectId:
+          nullable: true
+          type: string
+        questId:
+          type: string
+        activity:
+          $ref: '#/components/schemas/ActivityType'
+        bannerUrl:
+          nullable: true
+          type: string
+        target:
+          format: double
+          type: number
+        instructions:
+          nullable: true
+          type: string
+        description:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - activity
+      - bannerUrl
+      - createdAt
+      - description
+      - id
+      - instructions
+      - objectId
+      - questId
+      - target
+      - title
+      - updatedAt
+      type: object
+    ExternalUser:
+      example:
+        userId: userId
+        username: username
+      properties:
+        userId:
+          type: string
+        username:
+          type: string
+      required:
+      - userId
+      - username
+      type: object
+    ExternalActivity:
+      example:
+        activity: activity
+        userId: userId
+      properties:
+        activity:
+          type: string
+        userId:
+          type: string
+      required:
+      - activity
+      - userId
+      type: object
+    QuestSchedule:
+      description: Model QuestSchedule
+      example:
+        processed: true
+        questId: questId
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        recurring: true
+        startTime: 2000-01-23T04:56:07.000+00:00
+        endTime: 2000-01-23T04:56:07.000+00:00
+        id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        recurring:
+          type: boolean
+        processed:
+          type: boolean
+        questId:
+          type: string
+        endTime:
+          format: date-time
+          nullable: true
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - createdAt
+      - endTime
+      - id
+      - processed
+      - questId
+      - recurring
+      - startTime
+      - updatedAt
+      type: object
+    TrackActivity_200_response:
+      example:
+        message: message
+      properties:
+        message:
+          type: string
+      required:
+      - message
+      type: object
+    CreateQuest_request:
+      properties:
+        description:
+          type: string
+        title:
+          type: string
+      required:
+      - description
+      - title
+      type: object
+    CreateQuestSchedule_request:
+      properties:
+        recurring:
+          type: boolean
+        questId:
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        startTime:
+          format: date-time
+          type: string
+      required:
+      - endTime
+      - questId
+      - recurring
+      - startTime
+      type: object
+    CreateQuestSchedule_200_response:
+      example:
+        questSchedule:
+          processed: true
+          questId: questId
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          recurring: true
+          startTime: 2000-01-23T04:56:07.000+00:00
+          endTime: 2000-01-23T04:56:07.000+00:00
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        message: message
+      properties:
+        questSchedule:
+          $ref: '#/components/schemas/QuestSchedule'
+        message:
+          type: string
+      required:
+      - message
+      type: object
+    CreateGoal_request:
+      properties:
+        activity:
+          type: string
+        questId:
+          type: string
+        bannerUrl:
+          type: string
+        target:
+          format: double
+          type: number
+        instruction:
+          type: string
+        description:
+          type: string
+        title:
+          type: string
+      required:
+      - activity
+      - description
+      - questId
+      - target
+      - title
+      type: object
+  securitySchemes:
+    api_key:
+      in: query
+      name: access_token
+      type: apiKey
