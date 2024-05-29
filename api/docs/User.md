@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **PhoneNumber** | **NullableString** |  | 
 **Email** | **NullableString** |  | 
+**OriginalCreationDate** | **NullableTime** |  | 
 **UpdatedAt** | **time.Time** |  | 
 **CreatedAt** | **time.Time** |  | 
 **Id** | **string** |  | 
@@ -31,7 +32,7 @@ Name | Type | Description | Notes
 
 ### NewUser
 
-`func NewUser(lastLogin NullableTime, verified bool, mergedWith NullableString, gameId NullableString, externalId NullableString, referredById NullableString, enableNotifications bool, hasAcceptedLegal bool, hasOnboarded bool, gender Gender, birthYear float64, avatar string, remainingReferrals float64, code string, usertag float64, username string, name string, phoneNumber NullableString, email NullableString, updatedAt time.Time, createdAt time.Time, id string, ) *User`
+`func NewUser(lastLogin NullableTime, verified bool, mergedWith NullableString, gameId NullableString, externalId NullableString, referredById NullableString, enableNotifications bool, hasAcceptedLegal bool, hasOnboarded bool, gender Gender, birthYear float64, avatar string, remainingReferrals float64, code string, usertag float64, username string, name string, phoneNumber NullableString, email NullableString, originalCreationDate NullableTime, updatedAt time.Time, createdAt time.Time, id string, ) *User`
 
 NewUser instantiates a new User object
 This constructor will assign default values to properties that have it defined,
@@ -496,6 +497,36 @@ SetEmail sets Email field to given value.
 `func (o *User) UnsetEmail()`
 
 UnsetEmail ensures that no value is present for Email, not even an explicit nil
+### GetOriginalCreationDate
+
+`func (o *User) GetOriginalCreationDate() time.Time`
+
+GetOriginalCreationDate returns the OriginalCreationDate field if non-nil, zero value otherwise.
+
+### GetOriginalCreationDateOk
+
+`func (o *User) GetOriginalCreationDateOk() (*time.Time, bool)`
+
+GetOriginalCreationDateOk returns a tuple with the OriginalCreationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalCreationDate
+
+`func (o *User) SetOriginalCreationDate(v time.Time)`
+
+SetOriginalCreationDate sets OriginalCreationDate field to given value.
+
+
+### SetOriginalCreationDateNil
+
+`func (o *User) SetOriginalCreationDateNil(b bool)`
+
+ SetOriginalCreationDateNil sets the value for OriginalCreationDate to be an explicit nil
+
+### UnsetOriginalCreationDate
+`func (o *User) UnsetOriginalCreationDate()`
+
+UnsetOriginalCreationDate ensures that no value is present for OriginalCreationDate, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *User) GetUpdatedAt() time.Time`

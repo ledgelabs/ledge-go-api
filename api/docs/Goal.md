@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ObjectId** | **NullableString** |  | 
 **QuestId** | **string** |  | 
-**Activity** | [**ActivityType**](ActivityType.md) |  | 
+**ObjectId** | **NullableString** |  | 
 **BannerUrl** | **NullableString** |  | 
-**Target** | **float64** |  | 
 **Instructions** | **NullableString** |  | 
-**Description** | **string** |  | 
+**Description** | **NullableString** |  | 
+**Activity** | [**ActivityType**](ActivityType.md) |  | 
+**Target** | **float64** |  | 
 **Title** | **string** |  | 
 **UpdatedAt** | **time.Time** |  | 
 **CreatedAt** | **time.Time** |  | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewGoal
 
-`func NewGoal(objectId NullableString, questId string, activity ActivityType, bannerUrl NullableString, target float64, instructions NullableString, description string, title string, updatedAt time.Time, createdAt time.Time, id string, ) *Goal`
+`func NewGoal(questId string, objectId NullableString, bannerUrl NullableString, instructions NullableString, description NullableString, activity ActivityType, target float64, title string, updatedAt time.Time, createdAt time.Time, id string, ) *Goal`
 
 NewGoal instantiates a new Goal object
 This constructor will assign default values to properties that have it defined,
@@ -34,6 +34,26 @@ will change when the set of required properties is changed
 NewGoalWithDefaults instantiates a new Goal object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetQuestId
+
+`func (o *Goal) GetQuestId() string`
+
+GetQuestId returns the QuestId field if non-nil, zero value otherwise.
+
+### GetQuestIdOk
+
+`func (o *Goal) GetQuestIdOk() (*string, bool)`
+
+GetQuestIdOk returns a tuple with the QuestId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQuestId
+
+`func (o *Goal) SetQuestId(v string)`
+
+SetQuestId sets QuestId field to given value.
+
 
 ### GetObjectId
 
@@ -65,46 +85,6 @@ SetObjectId sets ObjectId field to given value.
 `func (o *Goal) UnsetObjectId()`
 
 UnsetObjectId ensures that no value is present for ObjectId, not even an explicit nil
-### GetQuestId
-
-`func (o *Goal) GetQuestId() string`
-
-GetQuestId returns the QuestId field if non-nil, zero value otherwise.
-
-### GetQuestIdOk
-
-`func (o *Goal) GetQuestIdOk() (*string, bool)`
-
-GetQuestIdOk returns a tuple with the QuestId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetQuestId
-
-`func (o *Goal) SetQuestId(v string)`
-
-SetQuestId sets QuestId field to given value.
-
-
-### GetActivity
-
-`func (o *Goal) GetActivity() ActivityType`
-
-GetActivity returns the Activity field if non-nil, zero value otherwise.
-
-### GetActivityOk
-
-`func (o *Goal) GetActivityOk() (*ActivityType, bool)`
-
-GetActivityOk returns a tuple with the Activity field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActivity
-
-`func (o *Goal) SetActivity(v ActivityType)`
-
-SetActivity sets Activity field to given value.
-
-
 ### GetBannerUrl
 
 `func (o *Goal) GetBannerUrl() string`
@@ -135,26 +115,6 @@ SetBannerUrl sets BannerUrl field to given value.
 `func (o *Goal) UnsetBannerUrl()`
 
 UnsetBannerUrl ensures that no value is present for BannerUrl, not even an explicit nil
-### GetTarget
-
-`func (o *Goal) GetTarget() float64`
-
-GetTarget returns the Target field if non-nil, zero value otherwise.
-
-### GetTargetOk
-
-`func (o *Goal) GetTargetOk() (*float64, bool)`
-
-GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTarget
-
-`func (o *Goal) SetTarget(v float64)`
-
-SetTarget sets Target field to given value.
-
-
 ### GetInstructions
 
 `func (o *Goal) GetInstructions() string`
@@ -203,6 +163,56 @@ and a boolean to check if the value has been set.
 `func (o *Goal) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
+
+
+### SetDescriptionNil
+
+`func (o *Goal) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *Goal) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetActivity
+
+`func (o *Goal) GetActivity() ActivityType`
+
+GetActivity returns the Activity field if non-nil, zero value otherwise.
+
+### GetActivityOk
+
+`func (o *Goal) GetActivityOk() (*ActivityType, bool)`
+
+GetActivityOk returns a tuple with the Activity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActivity
+
+`func (o *Goal) SetActivity(v ActivityType)`
+
+SetActivity sets Activity field to given value.
+
+
+### GetTarget
+
+`func (o *Goal) GetTarget() float64`
+
+GetTarget returns the Target field if non-nil, zero value otherwise.
+
+### GetTargetOk
+
+`func (o *Goal) GetTargetOk() (*float64, bool)`
+
+GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTarget
+
+`func (o *Goal) SetTarget(v float64)`
+
+SetTarget sets Target field to given value.
 
 
 ### GetTitle

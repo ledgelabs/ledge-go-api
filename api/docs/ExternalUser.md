@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**OriginalCreationDate** | Pointer to **time.Time** |  | [optional] 
 **UserId** | **string** |  | 
 **Username** | **string** |  | 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewExternalUserWithDefaults instantiates a new ExternalUser object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOriginalCreationDate
+
+`func (o *ExternalUser) GetOriginalCreationDate() time.Time`
+
+GetOriginalCreationDate returns the OriginalCreationDate field if non-nil, zero value otherwise.
+
+### GetOriginalCreationDateOk
+
+`func (o *ExternalUser) GetOriginalCreationDateOk() (*time.Time, bool)`
+
+GetOriginalCreationDateOk returns a tuple with the OriginalCreationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalCreationDate
+
+`func (o *ExternalUser) SetOriginalCreationDate(v time.Time)`
+
+SetOriginalCreationDate sets OriginalCreationDate field to given value.
+
+### HasOriginalCreationDate
+
+`func (o *ExternalUser) HasOriginalCreationDate() bool`
+
+HasOriginalCreationDate returns a boolean if a field has been set.
 
 ### GetUserId
 

@@ -17,11 +17,11 @@ import (
 	"fmt"
 )
 
-// checks if the QuestSchedule type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &QuestSchedule{}
+// checks if the QuestScheduleDetailed type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QuestScheduleDetailed{}
 
-// QuestSchedule Model QuestSchedule
-type QuestSchedule struct {
+// QuestScheduleDetailed struct for QuestScheduleDetailed
+type QuestScheduleDetailed struct {
 	QuestId string `json:"questId"`
 	Processed bool `json:"processed"`
 	Recurring bool `json:"recurring"`
@@ -30,16 +30,17 @@ type QuestSchedule struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 	CreatedAt time.Time `json:"createdAt"`
 	Id string `json:"id"`
+	Quest Quest `json:"quest"`
 }
 
-type _QuestSchedule QuestSchedule
+type _QuestScheduleDetailed QuestScheduleDetailed
 
-// NewQuestSchedule instantiates a new QuestSchedule object
+// NewQuestScheduleDetailed instantiates a new QuestScheduleDetailed object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuestSchedule(questId string, processed bool, recurring bool, endTime NullableTime, startTime time.Time, updatedAt time.Time, createdAt time.Time, id string) *QuestSchedule {
-	this := QuestSchedule{}
+func NewQuestScheduleDetailed(questId string, processed bool, recurring bool, endTime NullableTime, startTime time.Time, updatedAt time.Time, createdAt time.Time, id string, quest Quest) *QuestScheduleDetailed {
+	this := QuestScheduleDetailed{}
 	this.QuestId = questId
 	this.Processed = processed
 	this.Recurring = recurring
@@ -48,19 +49,20 @@ func NewQuestSchedule(questId string, processed bool, recurring bool, endTime Nu
 	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
 	this.Id = id
+	this.Quest = quest
 	return &this
 }
 
-// NewQuestScheduleWithDefaults instantiates a new QuestSchedule object
+// NewQuestScheduleDetailedWithDefaults instantiates a new QuestScheduleDetailed object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewQuestScheduleWithDefaults() *QuestSchedule {
-	this := QuestSchedule{}
+func NewQuestScheduleDetailedWithDefaults() *QuestScheduleDetailed {
+	this := QuestScheduleDetailed{}
 	return &this
 }
 
 // GetQuestId returns the QuestId field value
-func (o *QuestSchedule) GetQuestId() string {
+func (o *QuestScheduleDetailed) GetQuestId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -71,7 +73,7 @@ func (o *QuestSchedule) GetQuestId() string {
 
 // GetQuestIdOk returns a tuple with the QuestId field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetQuestIdOk() (*string, bool) {
+func (o *QuestScheduleDetailed) GetQuestIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -79,12 +81,12 @@ func (o *QuestSchedule) GetQuestIdOk() (*string, bool) {
 }
 
 // SetQuestId sets field value
-func (o *QuestSchedule) SetQuestId(v string) {
+func (o *QuestScheduleDetailed) SetQuestId(v string) {
 	o.QuestId = v
 }
 
 // GetProcessed returns the Processed field value
-func (o *QuestSchedule) GetProcessed() bool {
+func (o *QuestScheduleDetailed) GetProcessed() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -95,7 +97,7 @@ func (o *QuestSchedule) GetProcessed() bool {
 
 // GetProcessedOk returns a tuple with the Processed field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetProcessedOk() (*bool, bool) {
+func (o *QuestScheduleDetailed) GetProcessedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,12 +105,12 @@ func (o *QuestSchedule) GetProcessedOk() (*bool, bool) {
 }
 
 // SetProcessed sets field value
-func (o *QuestSchedule) SetProcessed(v bool) {
+func (o *QuestScheduleDetailed) SetProcessed(v bool) {
 	o.Processed = v
 }
 
 // GetRecurring returns the Recurring field value
-func (o *QuestSchedule) GetRecurring() bool {
+func (o *QuestScheduleDetailed) GetRecurring() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -119,7 +121,7 @@ func (o *QuestSchedule) GetRecurring() bool {
 
 // GetRecurringOk returns a tuple with the Recurring field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetRecurringOk() (*bool, bool) {
+func (o *QuestScheduleDetailed) GetRecurringOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,13 +129,13 @@ func (o *QuestSchedule) GetRecurringOk() (*bool, bool) {
 }
 
 // SetRecurring sets field value
-func (o *QuestSchedule) SetRecurring(v bool) {
+func (o *QuestScheduleDetailed) SetRecurring(v bool) {
 	o.Recurring = v
 }
 
 // GetEndTime returns the EndTime field value
 // If the value is explicit nil, the zero value for time.Time will be returned
-func (o *QuestSchedule) GetEndTime() time.Time {
+func (o *QuestScheduleDetailed) GetEndTime() time.Time {
 	if o == nil || o.EndTime.Get() == nil {
 		var ret time.Time
 		return ret
@@ -145,7 +147,7 @@ func (o *QuestSchedule) GetEndTime() time.Time {
 // GetEndTimeOk returns a tuple with the EndTime field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *QuestSchedule) GetEndTimeOk() (*time.Time, bool) {
+func (o *QuestScheduleDetailed) GetEndTimeOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,12 +155,12 @@ func (o *QuestSchedule) GetEndTimeOk() (*time.Time, bool) {
 }
 
 // SetEndTime sets field value
-func (o *QuestSchedule) SetEndTime(v time.Time) {
+func (o *QuestScheduleDetailed) SetEndTime(v time.Time) {
 	o.EndTime.Set(&v)
 }
 
 // GetStartTime returns the StartTime field value
-func (o *QuestSchedule) GetStartTime() time.Time {
+func (o *QuestScheduleDetailed) GetStartTime() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -169,7 +171,7 @@ func (o *QuestSchedule) GetStartTime() time.Time {
 
 // GetStartTimeOk returns a tuple with the StartTime field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetStartTimeOk() (*time.Time, bool) {
+func (o *QuestScheduleDetailed) GetStartTimeOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -177,12 +179,12 @@ func (o *QuestSchedule) GetStartTimeOk() (*time.Time, bool) {
 }
 
 // SetStartTime sets field value
-func (o *QuestSchedule) SetStartTime(v time.Time) {
+func (o *QuestScheduleDetailed) SetStartTime(v time.Time) {
 	o.StartTime = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *QuestSchedule) GetUpdatedAt() time.Time {
+func (o *QuestScheduleDetailed) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -193,7 +195,7 @@ func (o *QuestSchedule) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetUpdatedAtOk() (*time.Time, bool) {
+func (o *QuestScheduleDetailed) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -201,12 +203,12 @@ func (o *QuestSchedule) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *QuestSchedule) SetUpdatedAt(v time.Time) {
+func (o *QuestScheduleDetailed) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *QuestSchedule) GetCreatedAt() time.Time {
+func (o *QuestScheduleDetailed) GetCreatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -217,7 +219,7 @@ func (o *QuestSchedule) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetCreatedAtOk() (*time.Time, bool) {
+func (o *QuestScheduleDetailed) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -225,12 +227,12 @@ func (o *QuestSchedule) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *QuestSchedule) SetCreatedAt(v time.Time) {
+func (o *QuestScheduleDetailed) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
 // GetId returns the Id field value
-func (o *QuestSchedule) GetId() string {
+func (o *QuestScheduleDetailed) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -241,7 +243,7 @@ func (o *QuestSchedule) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *QuestSchedule) GetIdOk() (*string, bool) {
+func (o *QuestScheduleDetailed) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -249,11 +251,35 @@ func (o *QuestSchedule) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *QuestSchedule) SetId(v string) {
+func (o *QuestScheduleDetailed) SetId(v string) {
 	o.Id = v
 }
 
-func (o QuestSchedule) MarshalJSON() ([]byte, error) {
+// GetQuest returns the Quest field value
+func (o *QuestScheduleDetailed) GetQuest() Quest {
+	if o == nil {
+		var ret Quest
+		return ret
+	}
+
+	return o.Quest
+}
+
+// GetQuestOk returns a tuple with the Quest field value
+// and a boolean to check if the value has been set.
+func (o *QuestScheduleDetailed) GetQuestOk() (*Quest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quest, true
+}
+
+// SetQuest sets field value
+func (o *QuestScheduleDetailed) SetQuest(v Quest) {
+	o.Quest = v
+}
+
+func (o QuestScheduleDetailed) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -261,7 +287,7 @@ func (o QuestSchedule) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o QuestSchedule) ToMap() (map[string]interface{}, error) {
+func (o QuestScheduleDetailed) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["questId"] = o.QuestId
 	toSerialize["processed"] = o.Processed
@@ -271,10 +297,11 @@ func (o QuestSchedule) ToMap() (map[string]interface{}, error) {
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["id"] = o.Id
+	toSerialize["quest"] = o.Quest
 	return toSerialize, nil
 }
 
-func (o *QuestSchedule) UnmarshalJSON(data []byte) (err error) {
+func (o *QuestScheduleDetailed) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -287,6 +314,7 @@ func (o *QuestSchedule) UnmarshalJSON(data []byte) (err error) {
 		"updatedAt",
 		"createdAt",
 		"id",
+		"quest",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -303,53 +331,53 @@ func (o *QuestSchedule) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varQuestSchedule := _QuestSchedule{}
+	varQuestScheduleDetailed := _QuestScheduleDetailed{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuestSchedule)
+	err = decoder.Decode(&varQuestScheduleDetailed)
 
 	if err != nil {
 		return err
 	}
 
-	*o = QuestSchedule(varQuestSchedule)
+	*o = QuestScheduleDetailed(varQuestScheduleDetailed)
 
 	return err
 }
 
-type NullableQuestSchedule struct {
-	value *QuestSchedule
+type NullableQuestScheduleDetailed struct {
+	value *QuestScheduleDetailed
 	isSet bool
 }
 
-func (v NullableQuestSchedule) Get() *QuestSchedule {
+func (v NullableQuestScheduleDetailed) Get() *QuestScheduleDetailed {
 	return v.value
 }
 
-func (v *NullableQuestSchedule) Set(val *QuestSchedule) {
+func (v *NullableQuestScheduleDetailed) Set(val *QuestScheduleDetailed) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableQuestSchedule) IsSet() bool {
+func (v NullableQuestScheduleDetailed) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableQuestSchedule) Unset() {
+func (v *NullableQuestScheduleDetailed) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableQuestSchedule(val *QuestSchedule) *NullableQuestSchedule {
-	return &NullableQuestSchedule{value: val, isSet: true}
+func NewNullableQuestScheduleDetailed(val *QuestScheduleDetailed) *NullableQuestScheduleDetailed {
+	return &NullableQuestScheduleDetailed{value: val, isSet: true}
 }
 
-func (v NullableQuestSchedule) MarshalJSON() ([]byte, error) {
+func (v NullableQuestScheduleDetailed) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableQuestSchedule) UnmarshalJSON(src []byte) error {
+func (v *NullableQuestScheduleDetailed) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

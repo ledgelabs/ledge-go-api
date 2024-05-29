@@ -8,116 +8,13 @@ info:
 servers:
 - url: /
 paths:
-  /external/{key}/external-user:
-    get:
-      operationId: GetExternalUser
-      parameters:
-      - explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: externalId
-        required: true
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: gameId
-        required: true
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                allOf:
-                - $ref: '#/components/schemas/User'
-                nullable: true
-          description: Ok
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/my-quests:
-    get:
-      operationId: GetMyQuests
-      parameters:
-      - description: given by the Ledge admins.
-        explode: false
-        in: header
-        name: ApiKey
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Quest'
-                type: array
-          description: quests created by this api key
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/my-goals:
-    get:
-      operationId: GetMyGoals
-      parameters:
-      - description: given by the Ledge admins.
-        explode: false
-        in: header
-        name: ApiKey
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Goal'
-                type: array
-          description: quests created by this api key
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/{key}/user:
+  /external/users:
     post:
       operationId: RegisterUser
       parameters:
       - explode: false
-        in: path
-        name: key
+        in: header
+        name: ApiKey
         required: true
         schema:
           type: string
@@ -133,7 +30,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/RegisterUser_200_response'
           description: Ok
         default:
           content:
@@ -144,42 +41,9 @@ paths:
       security: []
       tags:
       - external
-  /external/{key}/activity:
+  /external/activities:
     post:
       operationId: TrackActivity
-      parameters:
-      - explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExternalActivity'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrackActivity_200_response'
-          description: Ok
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/quests:
-    post:
-      operationId: CreateQuest
       parameters:
       - explode: false
         in: header
@@ -192,73 +56,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateQuest_request'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrackActivity_200_response'
-          description: Ok
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/{key}/questSchedule:
-    post:
-      operationId: CreateQuestSchedule
-      parameters:
-      - explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateQuestSchedule_request'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateQuestSchedule_200_response'
-          description: Ok
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: ""
-      security: []
-      tags:
-      - external
-  /external/{key}/goal:
-    post:
-      operationId: CreateGoal
-      parameters:
-      - explode: false
-        in: path
-        name: key
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateGoal_request'
+              $ref: '#/components/schemas/TrackActivityInput'
         required: true
       responses:
         "200":
@@ -306,29 +104,6 @@ components:
       type: string
     User:
       description: Model User
-      example:
-        gameId: gameId
-        lastLogin: 2000-01-23T04:56:07.000+00:00
-        mergedWith: mergedWith
-        hasAcceptedLegal: true
-        code: code
-        gender: null
-        hasOnboarded: true
-        enableNotifications: true
-        verified: true
-        externalId: externalId
-        avatar: avatar
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        phoneNumber: phoneNumber
-        usertag: 1.4658129805029452
-        birthYear: 0.8008281904610115
-        name: name
-        id: id
-        referredById: referredById
-        email: email
-        remainingReferrals: 6.027456183070403
-        username: username
-        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         lastLogin:
           format: date-time
@@ -379,6 +154,10 @@ components:
         email:
           nullable: true
           type: string
+        originalCreationDate:
+          format: date-time
+          nullable: true
+          type: string
         updatedAt:
           format: date-time
           type: string
@@ -403,6 +182,7 @@ components:
       - lastLogin
       - mergedWith
       - name
+      - originalCreationDate
       - phoneNumber
       - referredById
       - remainingReferrals
@@ -411,6 +191,40 @@ components:
       - usertag
       - verified
       type: object
+    QuestSchedule:
+      description: Model QuestSchedule
+      properties:
+        questId:
+          type: string
+        processed:
+          type: boolean
+        recurring:
+          type: boolean
+        endTime:
+          format: date-time
+          nullable: true
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - createdAt
+      - endTime
+      - id
+      - processed
+      - questId
+      - recurring
+      - startTime
+      - updatedAt
+      type: object
     QuestType:
       enum:
       - INDIVIDUAL
@@ -418,17 +232,13 @@ components:
       type: string
     Quest:
       description: Model Quest
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        description: description
-        id: id
-        type: null
-        title: title
-        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
+        gameId:
+          type: string
         type:
           $ref: '#/components/schemas/QuestType'
         description:
+          nullable: true
           type: string
         title:
           type: string
@@ -443,9 +253,93 @@ components:
       required:
       - createdAt
       - description
+      - gameId
       - id
       - title
       - type
+      - updatedAt
+      type: object
+    QuestScheduleDetailed:
+      allOf:
+      - $ref: '#/components/schemas/QuestSchedule'
+      - properties:
+          quest:
+            $ref: '#/components/schemas/Quest'
+        required:
+        - quest
+        type: object
+    Leaderboard:
+      description: Model Leaderboard
+      properties:
+        gameId:
+          type: string
+        altScoreTextAlias:
+          nullable: true
+          type: string
+        scoreTextAlias:
+          type: string
+        imageUrl:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        title:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - altScoreTextAlias
+      - createdAt
+      - description
+      - gameId
+      - id
+      - imageUrl
+      - scoreTextAlias
+      - title
+      - updatedAt
+      type: object
+    LeaderboardSchedule:
+      description: Model LeaderboardSchedule
+      properties:
+        leaderboardId:
+          type: string
+        rewardsProcessed:
+          type: boolean
+        scheduleProcessed:
+          type: boolean
+        recurring:
+          type: boolean
+        endTime:
+          format: date-time
+          nullable: true
+          type: string
+        startTime:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      required:
+      - createdAt
+      - endTime
+      - id
+      - leaderboardId
+      - recurring
+      - rewardsProcessed
+      - scheduleProcessed
+      - startTime
       - updatedAt
       type: object
     ActivityType:
@@ -465,37 +359,26 @@ components:
       type: string
     Goal:
       description: Model Goal
-      example:
-        questId: questId
-        instructions: instructions
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        activity: null
-        bannerUrl: bannerUrl
-        description: description
-        id: id
-        title: title
-        objectId: objectId
-        target: 0.8008281904610115
-        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
+        questId:
+          type: string
         objectId:
           nullable: true
           type: string
-        questId:
-          type: string
-        activity:
-          $ref: '#/components/schemas/ActivityType'
         bannerUrl:
           nullable: true
           type: string
-        target:
-          format: double
-          type: number
         instructions:
           nullable: true
           type: string
         description:
+          nullable: true
           type: string
+        activity:
+          $ref: '#/components/schemas/ActivityType'
+        target:
+          format: double
+          type: number
         title:
           type: string
         updatedAt:
@@ -522,8 +405,12 @@ components:
     ExternalUser:
       example:
         userId: userId
+        originalCreationDate: 2000-01-23T04:56:07.000+00:00
         username: username
       properties:
+        originalCreationDate:
+          format: date-time
+          type: string
         userId:
           type: string
         username:
@@ -532,61 +419,189 @@ components:
       - userId
       - username
       type: object
-    ExternalActivity:
+    TrackActivityInput:
       example:
-        activity: activity
+        activityId: activityId
+        count: 0.8008281904610115
+        occurrence: occurrence
         userId: userId
       properties:
-        activity:
+        occurrence:
+          type: string
+        count:
+          format: double
+          type: number
+        activityId:
           type: string
         userId:
           type: string
       required:
-      - activity
+      - activityId
+      - occurrence
       - userId
       type: object
-    QuestSchedule:
-      description: Model QuestSchedule
-      example:
-        processed: true
-        questId: questId
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        recurring: true
-        startTime: 2000-01-23T04:56:07.000+00:00
-        endTime: 2000-01-23T04:56:07.000+00:00
-        id: id
-        updatedAt: 2000-01-23T04:56:07.000+00:00
+    QuestCreateInput:
+      properties:
+        type:
+          $ref: '#/components/schemas/QuestType'
+        description:
+          type: string
+        title:
+          type: string
+      required:
+      - description
+      - title
+      - type
+      type: object
+    QuestScheduleCreateInput:
       properties:
         recurring:
-          type: boolean
-        processed:
           type: boolean
         questId:
           type: string
         endTime:
           format: date-time
-          nullable: true
           type: string
         startTime:
           format: date-time
           type: string
-        updatedAt:
-          format: date-time
+      required:
+      - endTime
+      - questId
+      - startTime
+      type: object
+    GoalCreateInput:
+      properties:
+        bannerUrl:
           type: string
-        createdAt:
-          format: date-time
+        instructions:
           type: string
-        id:
+        description:
+          type: string
+        activityId:
+          type: string
+        questId:
+          type: string
+        target:
+          format: double
+          type: number
+        title:
           type: string
       required:
-      - createdAt
-      - endTime
-      - id
-      - processed
+      - activityId
       - questId
-      - recurring
-      - startTime
-      - updatedAt
+      - target
+      - title
+      type: object
+    LeaderboardCreateInput:
+      properties:
+        imageUrl:
+          type: string
+        description:
+          type: string
+        altScoreTextAlias:
+          type: string
+        scoreTextAlias:
+          type: string
+        title:
+          type: string
+      required:
+      - scoreTextAlias
+      - title
+      type: object
+    Prisma.BatchPayload:
+      description: Batch Payload for updateMany & deleteMany & createMany
+      properties:
+        count:
+          format: double
+          type: number
+      required:
+      - count
+      type: object
+    ? Pick_Prisma.LeaderboardRewardUncheckedCreateInput.Exclude_keyofPrisma.LeaderboardRewardUncheckedCreateInput.id-or-createdAt-or-updatedAt__
+    : description: "From T, pick a set of properties whose keys are in the union K"
+      properties:
+        quantity:
+          format: double
+          type: number
+        rewardPlace:
+          format: double
+          type: number
+        leaderboardScheduleId:
+          type: string
+        productId:
+          type: string
+      required:
+      - leaderboardScheduleId
+      - productId
+      - rewardPlace
+      type: object
+    Omit_Prisma.LeaderboardRewardUncheckedCreateInput.id-or-createdAt-or-updatedAt_:
+      $ref: '#/components/schemas/Pick_Prisma.LeaderboardRewardUncheckedCreateInput.Exclude_keyofPrisma.LeaderboardRewardUncheckedCreateInput.id-or-createdAt-or-updatedAt__'
+    LeaderboardRewardCreateInput:
+      $ref: '#/components/schemas/Omit_Prisma.LeaderboardRewardUncheckedCreateInput.id-or-createdAt-or-updatedAt_'
+    ? Pick_Prisma.GoalProductUncheckedCreateInput.Exclude_keyofPrisma.GoalProductUncheckedCreateInput.id-or-createdAt-or-updatedAt-or-userQuestDraws__
+    : description: "From T, pick a set of properties whose keys are in the union K"
+      properties:
+        quantity:
+          format: double
+          type: number
+        productId:
+          type: string
+        goalId:
+          type: string
+      required:
+      - goalId
+      - productId
+      type: object
+    Omit_Prisma.GoalProductUncheckedCreateInput.id-or-createdAt-or-updatedAt-or-userQuestDraws_:
+      $ref: '#/components/schemas/Pick_Prisma.GoalProductUncheckedCreateInput.Exclude_keyofPrisma.GoalProductUncheckedCreateInput.id-or-createdAt-or-updatedAt-or-userQuestDraws__'
+    GoalProductCreateInput:
+      $ref: '#/components/schemas/Omit_Prisma.GoalProductUncheckedCreateInput.id-or-createdAt-or-updatedAt-or-userQuestDraws_'
+    QuestUpdateInput:
+      allOf:
+      - $ref: '#/components/schemas/QuestCreateInput'
+      - properties:
+          questId:
+            type: string
+        required:
+        - questId
+        type: object
+    QuestScheduleUpdateInput:
+      allOf:
+      - $ref: '#/components/schemas/QuestScheduleCreateInput'
+      - properties:
+          recurring:
+            type: boolean
+          questScheduleId:
+            type: string
+        required:
+        - questScheduleId
+        - recurring
+        type: object
+    GoalUpdateInput:
+      allOf:
+      - $ref: '#/components/schemas/GoalCreateInput'
+      - properties:
+          goalId:
+            type: string
+        required:
+        - goalId
+        type: object
+    LeaderboardUpdateInput:
+      $ref: '#/components/schemas/LeaderboardCreateInput'
+    RegisterUser_200_response:
+      example:
+        ledgeLink: ledgeLink
+        linkingCode: linkingCode
+      properties:
+        linkingCode:
+          type: string
+        ledgeLink:
+          type: string
+      required:
+      - ledgeLink
+      - linkingCode
       type: object
     TrackActivity_200_response:
       example:
@@ -596,78 +611,6 @@ components:
           type: string
       required:
       - message
-      type: object
-    CreateQuest_request:
-      properties:
-        description:
-          type: string
-        title:
-          type: string
-      required:
-      - description
-      - title
-      type: object
-    CreateQuestSchedule_request:
-      properties:
-        recurring:
-          type: boolean
-        questId:
-          type: string
-        endTime:
-          format: date-time
-          type: string
-        startTime:
-          format: date-time
-          type: string
-      required:
-      - endTime
-      - questId
-      - recurring
-      - startTime
-      type: object
-    CreateQuestSchedule_200_response:
-      example:
-        questSchedule:
-          processed: true
-          questId: questId
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          recurring: true
-          startTime: 2000-01-23T04:56:07.000+00:00
-          endTime: 2000-01-23T04:56:07.000+00:00
-          id: id
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        message: message
-      properties:
-        questSchedule:
-          $ref: '#/components/schemas/QuestSchedule'
-        message:
-          type: string
-      required:
-      - message
-      type: object
-    CreateGoal_request:
-      properties:
-        activity:
-          type: string
-        questId:
-          type: string
-        bannerUrl:
-          type: string
-        target:
-          format: double
-          type: number
-        instruction:
-          type: string
-        description:
-          type: string
-        title:
-          type: string
-      required:
-      - activity
-      - description
-      - questId
-      - target
-      - title
       type: object
   securitySchemes:
     api_key:

@@ -22,13 +22,13 @@ var _ MappedNullable = &Goal{}
 
 // Goal Model Goal
 type Goal struct {
-	ObjectId NullableString `json:"objectId"`
 	QuestId string `json:"questId"`
-	Activity ActivityType `json:"activity"`
+	ObjectId NullableString `json:"objectId"`
 	BannerUrl NullableString `json:"bannerUrl"`
-	Target float64 `json:"target"`
 	Instructions NullableString `json:"instructions"`
-	Description string `json:"description"`
+	Description NullableString `json:"description"`
+	Activity ActivityType `json:"activity"`
+	Target float64 `json:"target"`
 	Title string `json:"title"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -41,15 +41,15 @@ type _Goal Goal
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGoal(objectId NullableString, questId string, activity ActivityType, bannerUrl NullableString, target float64, instructions NullableString, description string, title string, updatedAt time.Time, createdAt time.Time, id string) *Goal {
+func NewGoal(questId string, objectId NullableString, bannerUrl NullableString, instructions NullableString, description NullableString, activity ActivityType, target float64, title string, updatedAt time.Time, createdAt time.Time, id string) *Goal {
 	this := Goal{}
-	this.ObjectId = objectId
 	this.QuestId = questId
-	this.Activity = activity
+	this.ObjectId = objectId
 	this.BannerUrl = bannerUrl
-	this.Target = target
 	this.Instructions = instructions
 	this.Description = description
+	this.Activity = activity
+	this.Target = target
 	this.Title = title
 	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
@@ -63,6 +63,30 @@ func NewGoal(objectId NullableString, questId string, activity ActivityType, ban
 func NewGoalWithDefaults() *Goal {
 	this := Goal{}
 	return &this
+}
+
+// GetQuestId returns the QuestId field value
+func (o *Goal) GetQuestId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.QuestId
+}
+
+// GetQuestIdOk returns a tuple with the QuestId field value
+// and a boolean to check if the value has been set.
+func (o *Goal) GetQuestIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.QuestId, true
+}
+
+// SetQuestId sets field value
+func (o *Goal) SetQuestId(v string) {
+	o.QuestId = v
 }
 
 // GetObjectId returns the ObjectId field value
@@ -91,54 +115,6 @@ func (o *Goal) SetObjectId(v string) {
 	o.ObjectId.Set(&v)
 }
 
-// GetQuestId returns the QuestId field value
-func (o *Goal) GetQuestId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.QuestId
-}
-
-// GetQuestIdOk returns a tuple with the QuestId field value
-// and a boolean to check if the value has been set.
-func (o *Goal) GetQuestIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.QuestId, true
-}
-
-// SetQuestId sets field value
-func (o *Goal) SetQuestId(v string) {
-	o.QuestId = v
-}
-
-// GetActivity returns the Activity field value
-func (o *Goal) GetActivity() ActivityType {
-	if o == nil {
-		var ret ActivityType
-		return ret
-	}
-
-	return o.Activity
-}
-
-// GetActivityOk returns a tuple with the Activity field value
-// and a boolean to check if the value has been set.
-func (o *Goal) GetActivityOk() (*ActivityType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Activity, true
-}
-
-// SetActivity sets field value
-func (o *Goal) SetActivity(v ActivityType) {
-	o.Activity = v
-}
-
 // GetBannerUrl returns the BannerUrl field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *Goal) GetBannerUrl() string {
@@ -163,30 +139,6 @@ func (o *Goal) GetBannerUrlOk() (*string, bool) {
 // SetBannerUrl sets field value
 func (o *Goal) SetBannerUrl(v string) {
 	o.BannerUrl.Set(&v)
-}
-
-// GetTarget returns the Target field value
-func (o *Goal) GetTarget() float64 {
-	if o == nil {
-		var ret float64
-		return ret
-	}
-
-	return o.Target
-}
-
-// GetTargetOk returns a tuple with the Target field value
-// and a boolean to check if the value has been set.
-func (o *Goal) GetTargetOk() (*float64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Target, true
-}
-
-// SetTarget sets field value
-func (o *Goal) SetTarget(v float64) {
-	o.Target = v
 }
 
 // GetInstructions returns the Instructions field value
@@ -216,27 +168,77 @@ func (o *Goal) SetInstructions(v string) {
 }
 
 // GetDescription returns the Description field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *Goal) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Goal) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // SetDescription sets field value
 func (o *Goal) SetDescription(v string) {
-	o.Description = v
+	o.Description.Set(&v)
+}
+
+// GetActivity returns the Activity field value
+func (o *Goal) GetActivity() ActivityType {
+	if o == nil {
+		var ret ActivityType
+		return ret
+	}
+
+	return o.Activity
+}
+
+// GetActivityOk returns a tuple with the Activity field value
+// and a boolean to check if the value has been set.
+func (o *Goal) GetActivityOk() (*ActivityType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Activity, true
+}
+
+// SetActivity sets field value
+func (o *Goal) SetActivity(v ActivityType) {
+	o.Activity = v
+}
+
+// GetTarget returns the Target field value
+func (o *Goal) GetTarget() float64 {
+	if o == nil {
+		var ret float64
+		return ret
+	}
+
+	return o.Target
+}
+
+// GetTargetOk returns a tuple with the Target field value
+// and a boolean to check if the value has been set.
+func (o *Goal) GetTargetOk() (*float64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Target, true
+}
+
+// SetTarget sets field value
+func (o *Goal) SetTarget(v float64) {
+	o.Target = v
 }
 
 // GetTitle returns the Title field value
@@ -345,13 +347,13 @@ func (o Goal) MarshalJSON() ([]byte, error) {
 
 func (o Goal) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["objectId"] = o.ObjectId.Get()
 	toSerialize["questId"] = o.QuestId
-	toSerialize["activity"] = o.Activity
+	toSerialize["objectId"] = o.ObjectId.Get()
 	toSerialize["bannerUrl"] = o.BannerUrl.Get()
-	toSerialize["target"] = o.Target
 	toSerialize["instructions"] = o.Instructions.Get()
-	toSerialize["description"] = o.Description
+	toSerialize["description"] = o.Description.Get()
+	toSerialize["activity"] = o.Activity
+	toSerialize["target"] = o.Target
 	toSerialize["title"] = o.Title
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
@@ -364,13 +366,13 @@ func (o *Goal) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"objectId",
 		"questId",
-		"activity",
+		"objectId",
 		"bannerUrl",
-		"target",
 		"instructions",
 		"description",
+		"activity",
+		"target",
 		"title",
 		"updatedAt",
 		"createdAt",

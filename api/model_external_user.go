@@ -12,6 +12,7 @@ package ledgeapi
 
 import (
 	"encoding/json"
+	"time"
 	"bytes"
 	"fmt"
 )
@@ -21,6 +22,7 @@ var _ MappedNullable = &ExternalUser{}
 
 // ExternalUser struct for ExternalUser
 type ExternalUser struct {
+	OriginalCreationDate *time.Time `json:"originalCreationDate,omitempty"`
 	UserId string `json:"userId"`
 	Username string `json:"username"`
 }
@@ -44,6 +46,38 @@ func NewExternalUser(userId string, username string) *ExternalUser {
 func NewExternalUserWithDefaults() *ExternalUser {
 	this := ExternalUser{}
 	return &this
+}
+
+// GetOriginalCreationDate returns the OriginalCreationDate field value if set, zero value otherwise.
+func (o *ExternalUser) GetOriginalCreationDate() time.Time {
+	if o == nil || IsNil(o.OriginalCreationDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.OriginalCreationDate
+}
+
+// GetOriginalCreationDateOk returns a tuple with the OriginalCreationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalUser) GetOriginalCreationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.OriginalCreationDate) {
+		return nil, false
+	}
+	return o.OriginalCreationDate, true
+}
+
+// HasOriginalCreationDate returns a boolean if a field has been set.
+func (o *ExternalUser) HasOriginalCreationDate() bool {
+	if o != nil && !IsNil(o.OriginalCreationDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetOriginalCreationDate gets a reference to the given time.Time and assigns it to the OriginalCreationDate field.
+func (o *ExternalUser) SetOriginalCreationDate(v time.Time) {
+	o.OriginalCreationDate = &v
 }
 
 // GetUserId returns the UserId field value
@@ -104,6 +138,9 @@ func (o ExternalUser) MarshalJSON() ([]byte, error) {
 
 func (o ExternalUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OriginalCreationDate) {
+		toSerialize["originalCreationDate"] = o.OriginalCreationDate
+	}
 	toSerialize["userId"] = o.UserId
 	toSerialize["username"] = o.Username
 	return toSerialize, nil

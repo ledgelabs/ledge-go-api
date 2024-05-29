@@ -41,6 +41,7 @@ type User struct {
 	Name string `json:"name"`
 	PhoneNumber NullableString `json:"phoneNumber"`
 	Email NullableString `json:"email"`
+	OriginalCreationDate NullableTime `json:"originalCreationDate"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	CreatedAt time.Time `json:"createdAt"`
 	Id string `json:"id"`
@@ -52,7 +53,7 @@ type _User User
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUser(lastLogin NullableTime, verified bool, mergedWith NullableString, gameId NullableString, externalId NullableString, referredById NullableString, enableNotifications bool, hasAcceptedLegal bool, hasOnboarded bool, gender Gender, birthYear float64, avatar string, remainingReferrals float64, code string, usertag float64, username string, name string, phoneNumber NullableString, email NullableString, updatedAt time.Time, createdAt time.Time, id string) *User {
+func NewUser(lastLogin NullableTime, verified bool, mergedWith NullableString, gameId NullableString, externalId NullableString, referredById NullableString, enableNotifications bool, hasAcceptedLegal bool, hasOnboarded bool, gender Gender, birthYear float64, avatar string, remainingReferrals float64, code string, usertag float64, username string, name string, phoneNumber NullableString, email NullableString, originalCreationDate NullableTime, updatedAt time.Time, createdAt time.Time, id string) *User {
 	this := User{}
 	this.LastLogin = lastLogin
 	this.Verified = verified
@@ -73,6 +74,7 @@ func NewUser(lastLogin NullableTime, verified bool, mergedWith NullableString, g
 	this.Name = name
 	this.PhoneNumber = phoneNumber
 	this.Email = email
+	this.OriginalCreationDate = originalCreationDate
 	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
 	this.Id = id
@@ -557,6 +559,32 @@ func (o *User) SetEmail(v string) {
 	o.Email.Set(&v)
 }
 
+// GetOriginalCreationDate returns the OriginalCreationDate field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *User) GetOriginalCreationDate() time.Time {
+	if o == nil || o.OriginalCreationDate.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.OriginalCreationDate.Get()
+}
+
+// GetOriginalCreationDateOk returns a tuple with the OriginalCreationDate field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetOriginalCreationDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OriginalCreationDate.Get(), o.OriginalCreationDate.IsSet()
+}
+
+// SetOriginalCreationDate sets field value
+func (o *User) SetOriginalCreationDate(v time.Time) {
+	o.OriginalCreationDate.Set(&v)
+}
+
 // GetUpdatedAt returns the UpdatedAt field value
 func (o *User) GetUpdatedAt() time.Time {
 	if o == nil {
@@ -658,6 +686,7 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["phoneNumber"] = o.PhoneNumber.Get()
 	toSerialize["email"] = o.Email.Get()
+	toSerialize["originalCreationDate"] = o.OriginalCreationDate.Get()
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["id"] = o.Id
@@ -688,6 +717,7 @@ func (o *User) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"phoneNumber",
 		"email",
+		"originalCreationDate",
 		"updatedAt",
 		"createdAt",
 		"id",

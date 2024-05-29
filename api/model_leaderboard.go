@@ -17,13 +17,15 @@ import (
 	"fmt"
 )
 
-// checks if the Quest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Quest{}
+// checks if the Leaderboard type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Leaderboard{}
 
-// Quest Model Quest
-type Quest struct {
+// Leaderboard Model Leaderboard
+type Leaderboard struct {
 	GameId string `json:"gameId"`
-	Type QuestType `json:"type"`
+	AltScoreTextAlias NullableString `json:"altScoreTextAlias"`
+	ScoreTextAlias string `json:"scoreTextAlias"`
+	ImageUrl NullableString `json:"imageUrl"`
 	Description NullableString `json:"description"`
 	Title string `json:"title"`
 	UpdatedAt time.Time `json:"updatedAt"`
@@ -31,16 +33,18 @@ type Quest struct {
 	Id string `json:"id"`
 }
 
-type _Quest Quest
+type _Leaderboard Leaderboard
 
-// NewQuest instantiates a new Quest object
+// NewLeaderboard instantiates a new Leaderboard object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQuest(gameId string, type_ QuestType, description NullableString, title string, updatedAt time.Time, createdAt time.Time, id string) *Quest {
-	this := Quest{}
+func NewLeaderboard(gameId string, altScoreTextAlias NullableString, scoreTextAlias string, imageUrl NullableString, description NullableString, title string, updatedAt time.Time, createdAt time.Time, id string) *Leaderboard {
+	this := Leaderboard{}
 	this.GameId = gameId
-	this.Type = type_
+	this.AltScoreTextAlias = altScoreTextAlias
+	this.ScoreTextAlias = scoreTextAlias
+	this.ImageUrl = imageUrl
 	this.Description = description
 	this.Title = title
 	this.UpdatedAt = updatedAt
@@ -49,16 +53,16 @@ func NewQuest(gameId string, type_ QuestType, description NullableString, title 
 	return &this
 }
 
-// NewQuestWithDefaults instantiates a new Quest object
+// NewLeaderboardWithDefaults instantiates a new Leaderboard object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewQuestWithDefaults() *Quest {
-	this := Quest{}
+func NewLeaderboardWithDefaults() *Leaderboard {
+	this := Leaderboard{}
 	return &this
 }
 
 // GetGameId returns the GameId field value
-func (o *Quest) GetGameId() string {
+func (o *Leaderboard) GetGameId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -69,7 +73,7 @@ func (o *Quest) GetGameId() string {
 
 // GetGameIdOk returns a tuple with the GameId field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetGameIdOk() (*string, bool) {
+func (o *Leaderboard) GetGameIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,37 +81,89 @@ func (o *Quest) GetGameIdOk() (*string, bool) {
 }
 
 // SetGameId sets field value
-func (o *Quest) SetGameId(v string) {
+func (o *Leaderboard) SetGameId(v string) {
 	o.GameId = v
 }
 
-// GetType returns the Type field value
-func (o *Quest) GetType() QuestType {
-	if o == nil {
-		var ret QuestType
+// GetAltScoreTextAlias returns the AltScoreTextAlias field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Leaderboard) GetAltScoreTextAlias() string {
+	if o == nil || o.AltScoreTextAlias.Get() == nil {
+		var ret string
 		return ret
 	}
 
-	return o.Type
+	return *o.AltScoreTextAlias.Get()
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetAltScoreTextAliasOk returns a tuple with the AltScoreTextAlias field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetTypeOk() (*QuestType, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Leaderboard) GetAltScoreTextAliasOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.AltScoreTextAlias.Get(), o.AltScoreTextAlias.IsSet()
 }
 
-// SetType sets field value
-func (o *Quest) SetType(v QuestType) {
-	o.Type = v
+// SetAltScoreTextAlias sets field value
+func (o *Leaderboard) SetAltScoreTextAlias(v string) {
+	o.AltScoreTextAlias.Set(&v)
+}
+
+// GetScoreTextAlias returns the ScoreTextAlias field value
+func (o *Leaderboard) GetScoreTextAlias() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ScoreTextAlias
+}
+
+// GetScoreTextAliasOk returns a tuple with the ScoreTextAlias field value
+// and a boolean to check if the value has been set.
+func (o *Leaderboard) GetScoreTextAliasOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ScoreTextAlias, true
+}
+
+// SetScoreTextAlias sets field value
+func (o *Leaderboard) SetScoreTextAlias(v string) {
+	o.ScoreTextAlias = v
+}
+
+// GetImageUrl returns the ImageUrl field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Leaderboard) GetImageUrl() string {
+	if o == nil || o.ImageUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.ImageUrl.Get()
+}
+
+// GetImageUrlOk returns a tuple with the ImageUrl field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Leaderboard) GetImageUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ImageUrl.Get(), o.ImageUrl.IsSet()
+}
+
+// SetImageUrl sets field value
+func (o *Leaderboard) SetImageUrl(v string) {
+	o.ImageUrl.Set(&v)
 }
 
 // GetDescription returns the Description field value
 // If the value is explicit nil, the zero value for string will be returned
-func (o *Quest) GetDescription() string {
+func (o *Leaderboard) GetDescription() string {
 	if o == nil || o.Description.Get() == nil {
 		var ret string
 		return ret
@@ -119,7 +175,7 @@ func (o *Quest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Quest) GetDescriptionOk() (*string, bool) {
+func (o *Leaderboard) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,12 +183,12 @@ func (o *Quest) GetDescriptionOk() (*string, bool) {
 }
 
 // SetDescription sets field value
-func (o *Quest) SetDescription(v string) {
+func (o *Leaderboard) SetDescription(v string) {
 	o.Description.Set(&v)
 }
 
 // GetTitle returns the Title field value
-func (o *Quest) GetTitle() string {
+func (o *Leaderboard) GetTitle() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -143,7 +199,7 @@ func (o *Quest) GetTitle() string {
 
 // GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetTitleOk() (*string, bool) {
+func (o *Leaderboard) GetTitleOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,12 +207,12 @@ func (o *Quest) GetTitleOk() (*string, bool) {
 }
 
 // SetTitle sets field value
-func (o *Quest) SetTitle(v string) {
+func (o *Leaderboard) SetTitle(v string) {
 	o.Title = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *Quest) GetUpdatedAt() time.Time {
+func (o *Leaderboard) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -167,7 +223,7 @@ func (o *Quest) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetUpdatedAtOk() (*time.Time, bool) {
+func (o *Leaderboard) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,12 +231,12 @@ func (o *Quest) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *Quest) SetUpdatedAt(v time.Time) {
+func (o *Leaderboard) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *Quest) GetCreatedAt() time.Time {
+func (o *Leaderboard) GetCreatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -191,7 +247,7 @@ func (o *Quest) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetCreatedAtOk() (*time.Time, bool) {
+func (o *Leaderboard) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -199,12 +255,12 @@ func (o *Quest) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *Quest) SetCreatedAt(v time.Time) {
+func (o *Leaderboard) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
 // GetId returns the Id field value
-func (o *Quest) GetId() string {
+func (o *Leaderboard) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -215,7 +271,7 @@ func (o *Quest) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Quest) GetIdOk() (*string, bool) {
+func (o *Leaderboard) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -223,11 +279,11 @@ func (o *Quest) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Quest) SetId(v string) {
+func (o *Leaderboard) SetId(v string) {
 	o.Id = v
 }
 
-func (o Quest) MarshalJSON() ([]byte, error) {
+func (o Leaderboard) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -235,10 +291,12 @@ func (o Quest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Quest) ToMap() (map[string]interface{}, error) {
+func (o Leaderboard) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["gameId"] = o.GameId
-	toSerialize["type"] = o.Type
+	toSerialize["altScoreTextAlias"] = o.AltScoreTextAlias.Get()
+	toSerialize["scoreTextAlias"] = o.ScoreTextAlias
+	toSerialize["imageUrl"] = o.ImageUrl.Get()
 	toSerialize["description"] = o.Description.Get()
 	toSerialize["title"] = o.Title
 	toSerialize["updatedAt"] = o.UpdatedAt
@@ -247,13 +305,15 @@ func (o Quest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *Quest) UnmarshalJSON(data []byte) (err error) {
+func (o *Leaderboard) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"gameId",
-		"type",
+		"altScoreTextAlias",
+		"scoreTextAlias",
+		"imageUrl",
 		"description",
 		"title",
 		"updatedAt",
@@ -275,53 +335,53 @@ func (o *Quest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varQuest := _Quest{}
+	varLeaderboard := _Leaderboard{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varQuest)
+	err = decoder.Decode(&varLeaderboard)
 
 	if err != nil {
 		return err
 	}
 
-	*o = Quest(varQuest)
+	*o = Leaderboard(varLeaderboard)
 
 	return err
 }
 
-type NullableQuest struct {
-	value *Quest
+type NullableLeaderboard struct {
+	value *Leaderboard
 	isSet bool
 }
 
-func (v NullableQuest) Get() *Quest {
+func (v NullableLeaderboard) Get() *Leaderboard {
 	return v.value
 }
 
-func (v *NullableQuest) Set(val *Quest) {
+func (v *NullableLeaderboard) Set(val *Leaderboard) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableQuest) IsSet() bool {
+func (v NullableLeaderboard) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableQuest) Unset() {
+func (v *NullableLeaderboard) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableQuest(val *Quest) *NullableQuest {
-	return &NullableQuest{value: val, isSet: true}
+func NewNullableLeaderboard(val *Leaderboard) *NullableLeaderboard {
+	return &NullableLeaderboard{value: val, isSet: true}
 }
 
-func (v NullableQuest) MarshalJSON() ([]byte, error) {
+func (v NullableLeaderboard) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableQuest) UnmarshalJSON(src []byte) error {
+func (v *NullableLeaderboard) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
